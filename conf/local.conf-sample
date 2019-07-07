@@ -8,6 +8,7 @@ BBMASK = "meta-networking/recipes-kernel/wireguard"
 LICENSE_FLAGS_WHITELIST = "commercial"
 
 DISTRO_FEATURES = "ext2 usbhost ${DISTRO_FEATURES_LIBC}"
+# DISTRO_FEATURES_append = " nfs"
 
 DISTRO_FEATURES_BACKFILL_CONSIDERED += "pulseaudio opengl"
 
@@ -16,7 +17,7 @@ PREFERRED_PROVIDER_jpeg = "libjpeg-turbo"
 PREFERRED_PROVIDER_udev = "eudev"
 
 # the default kernel is 5.0 
-#PREFERRED_VERSION_linux-stable = "4.19.%"
+PREFERRED_VERSION_linux-stable = "5.1.%"
 
 MACHINE = "odroid-c2"
 
@@ -50,3 +51,21 @@ PATCHRESOLVE = "noop"
 INHERIT += "rm_work"
 RM_OLD_IMAGE = "1"
 CONF_VERSION = "1"
+
+#
+# Use systemd for system initialization
+#
+
+#DISTRO_FEATURES_append = " systemd"
+#DISTRO_FEATURES_BACKFILL_CONSIDERED += "sysvinit"
+#VIRTUAL-RUNTIME_init_manager = "systemd"
+#VIRTUAL-RUNTIME_initscripts = ""
+## VIRTUAL-RUNTIME_login_manager = "shadow-base" # Default "busybox"
+## VIRTUAL-RUNTIME_dev_manager = "systemd" # Default udev
+
+#
+# Tweak number of threads for compilation
+#
+
+BB_NUMBER_THREADS = "4"
+PARALLEL_MAKE = "-j 4"
